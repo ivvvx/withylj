@@ -1,0 +1,65 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const { title, date, tags, summary, cover, weather } = post.data;
+
+const allPosts = await getCollection('posts');
+const sortedPosts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const currentIndex = sortedPosts.findIndex((p) => p.id === post.id);
+const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
+const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
+---
+
+<BaseLayout title={title} description={summary}>
+  <article class="max-w-2xl mx-auto px-4 py-8">
+    <header class="text-center mb-6">
+      <h1 class="font-serif text-xl md:text-2xl font-bold text-warm-pink">{title}</h1>
+      <div class="text-xs text-warm-gray mt-2">
+        {new Date(date).toLocaleDateString('zh-CN', {
+          year: 'numeric', month: 'long', day: 'numeric', weekday: 'short',
+        })}
+        {weather && ` · ${weather}`}
+      </div>
+      {tags && tags.length > 0 && (
+        <div class="flex flex-wrap justify-center gap-1.5 mt-3">
+          {tags.map((tag: string) => (
+            <a href={`/albums?tag=${encodeURIComponent(tag)}`}
+               class="bg-warm-pink-light/70 text-warm-pink text-[10px] px-2.5 py-0.5 rounded-full hover:bg-warm-pink-light transition-colors">
+              {tag}
+            </a>
+          ))}
+        </div>
+      )}
+    </header>
+
+    {cover && (
+      <img src={cover} alt={title} class="w-full rounded-xl mb-6" />
+    )}
+
+    <div class="prose prose-sm max-w-none text-gray-600 leading-relaxed">
+      <Content />
+    </div>
+
+    <hr class="my-8 border-warm-border" />
+
+    <nav class="flex justify-between text-sm">
+      {prevPost ? (
+        <a href={`/posts/${prevPost.id}`} class="text-warm-pink hover:underline">← {prevPost.data.title}</a>
+      ) : <span />}
+      {nextPost ? (
+        <a href={`/posts/${nextPost.id}`} class="text-warm-pink hover:underline">{nextPost.data.title} →</a>
+      ) : <span />}
+    </nav>
+  </article>
+</BaseLayout>

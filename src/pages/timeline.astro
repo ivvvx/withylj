@@ -1,0 +1,56 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const posts = await getCollection('posts');
+const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<BaseLayout title="时间线">
+  <section class="max-w-2xl mx-auto px-4 py-8">
+    <h1 class="font-serif text-2xl font-bold text-warm-pink text-center mb-2">📅 时间线</h1>
+    <p class="text-xs text-warm-gray text-center mb-8">按时间倒序，回顾我们的故事</p>
+
+    {sortedPosts.length === 0 ? (
+      <p class="text-center text-gray-400 py-12">还没有文章~</p>
+    ) : (
+      <div class="border-l-2 border-warm-pink-light/60 ml-2">
+        {sortedPosts.map((post) => (
+          <a href={`/posts/${post.id}`} class="block pl-4 pb-6 group">
+            <time class="text-xs text-warm-gray mb-2 block">
+              {new Date(post.data.date).toLocaleDateString('zh-CN', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                weekday: 'short',
+              })}
+            </time>
+            <article class="bg-warm-bg-pink rounded-xl overflow-hidden border border-warm-border group-hover:shadow-md transition-shadow">
+              {post.data.cover && (
+                <img
+                  src={post.data.cover}
+                  alt={post.data.title}
+                  class="w-full h-40 object-cover"
+                  loading="lazy"
+                />
+              )}
+              <div class="p-3">
+                <h2 class="font-bold text-gray-700">{post.data.title}</h2>
+                <p class="text-xs text-gray-400 mt-1 line-clamp-2">{post.data.summary}</p>
+                {post.data.tags && post.data.tags.length > 0 && (
+                  <div class="flex flex-wrap gap-1 mt-2">
+                    {post.data.tags.map((tag: string) => (
+                      <span class="bg-warm-pink-light/50 text-warm-pink text-[10px] px-2 py-0.5 rounded-full">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </article>
+          </a>
+        ))}
+      </div>
+    )}
+  </section>
+</BaseLayout>
