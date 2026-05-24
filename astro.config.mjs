@@ -8,6 +8,6 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()]
   },
-  site: 'https://iiixq.github.io',
+  site: 'https://ivvvx.github.io',
   base: '/withylj',
 });
