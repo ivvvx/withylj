@@ -1,17 +1,71 @@
 ---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import TagChips from '../components/TagChips.astro';
 
+const posts = await getCollection('posts');
+const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const recentPosts = sortedPosts.slice(0, 6);
+
+const allTags = [...new Set(posts.flatMap((p) => p.data.tags ?? []))];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="首页">
+  <!-- Hero -->
+  <section class="text-center py-12 px-4 bg-gradient-to-b from-warm-bg-pink to-warm-bg relative overflow-hidden">
+    <div class="text-lg opacity-15 absolute top-4 left-6 select-none">✿ ✿ ✿</div>
+    <div class="text-sm opacity-10 absolute top-6 right-8 select-none">･ ｡ ☆</div>
+    <div class="text-base opacity-10 absolute bottom-6 left-5 select-none">♡ ♡</div>
+    <div class="text-xs opacity-8 absolute bottom-4 right-6 select-none">・ ・ ・</div>
+
+    <div class="text-5xl mb-3">🌸</div>
+    <h1 class="font-serif text-3xl font-bold text-warm-pink">With Ylj</h1>
+    <div class="w-10 h-0.5 bg-gradient-to-r from-transparent via-warm-pink-light to-transparent mx-auto my-3"></div>
+    <p class="text-sm text-warm-gray leading-relaxed">
+      记录和丽娟在一起的小日子<br/>
+      每一张照片，都是我们的故事
+    </p>
+    <p class="text-xs text-gray-300 mt-3">— since 2024 —</p>
+  </section>
+
+  <!-- Divider -->
+  <div class="text-center py-3 text-sm text-warm-pink-light/60 tracking-widest select-none">· · ✿ · ·</div>
+
+  <!-- Recent Posts -->
+  <section class="max-w-3xl mx-auto px-4 pb-6">
+    <div class="text-center mb-4">
+      <h2 class="text-base font-bold text-warm-pink">📝 最近更新</h2>
+      <p class="text-xs text-warm-gray mt-1">点滴日常，都想珍藏</p>
+    </div>
+
+    {recentPosts.length > 0 ? (
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+        {recentPosts.map((post) => <PostCard post={post} />)}
+      </div>
+    ) : (
+      <p class="text-center text-gray-400 text-sm py-8">还没有文章，去后台添加第一篇吧~</p>
+    )}
+
+    {sortedPosts.length > 6 && (
+      <div class="text-center mt-4">
+        <a href="/timeline" class="inline-block bg-warm-bg-pink text-warm-pink px-5 py-1.5 rounded-full text-xs border border-warm-pink-light hover:bg-warm-pink-light/30 transition-colors">
+          查看全部 →
+        </a>
+      </div>
+    )}
+  </section>
+
+  <!-- Divider -->
+  <div class="text-center py-3 text-base opacity-15 select-none">── ♡ ──</div>
+
+  <!-- Tags -->
+  {allTags.length > 0 && (
+    <section class="max-w-3xl mx-auto px-4 pb-8">
+      <div class="text-center mb-3">
+        <h2 class="text-base font-bold text-warm-pink">🏷️ 话题</h2>
+      </div>
+      <TagChips tags={allTags} />
+    </section>
+  )}
+</BaseLayout>
