@@ -1,7 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
-import { rehypeImageBase } from './src/plugins/rehype-image-base.mjs';
+import { rehypeImg } from './src/plugins/rehype-img.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -9,7 +9,7 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
   markdown: {
-    rehypePlugins: [[rehypeImageBase, '/withylj']],
+    rehypePlugins: [[rehypeImg, '/withylj']],
   },
   site: 'https://ivvvx.github.io',
   base: '/withylj',

@@ -1,6 +1,6 @@
 import { visit } from 'unist-util-visit';
 
-export function rehypeImageBase(base) {
+export function rehypeImg(base) {
   return (tree) => {
     visit(tree, 'element', (node) => {
       if (node.tagName !== 'img' || !node.properties.src) return;
@@ -13,7 +13,6 @@ export function rehypeImageBase(base) {
         node.properties.src = src;
       }
 
-      // Add responsive WebP srcset for images under /images/
       const imgPath = src.startsWith(base) ? src.slice(base.length) : src;
       if (!imgPath.startsWith('/images/')) return;
 
@@ -31,13 +30,6 @@ export function rehypeImageBase(base) {
       node.properties.loading = 'lazy';
       node.properties.decoding = 'async';
       node.properties.fetchpriority = 'low';
-
-      // CSS blur-up: blur placeholder visible until real image loads
-      node.properties.class = node.properties.class
-        ? `${node.properties.class} blur-up-img`
-        : 'blur-up-img';
-      node.properties.style = `background-image:url(${nameWithoutExt}-blur.webp);background-size:cover;background-position:center;`;
-      node.properties.onload = 'this.style.opacity=1';
     });
   };
 }
