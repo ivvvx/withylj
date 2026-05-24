@@ -28,6 +28,16 @@ export function rehypeImageBase(base) {
       ].join(', ');
 
       node.properties.sizes = '(max-width: 600px) 400px, (max-width: 1200px) 800px, 1200px';
+      node.properties.loading = 'lazy';
+      node.properties.decoding = 'async';
+      node.properties.fetchpriority = 'low';
+
+      // CSS blur-up: blur placeholder visible until real image loads
+      node.properties.class = node.properties.class
+        ? `${node.properties.class} blur-up-img`
+        : 'blur-up-img';
+      node.properties.style = `background-image:url(${nameWithoutExt}-blur.webp);background-size:cover;background-position:center;`;
+      node.properties.onload = 'this.style.opacity=1';
     });
   };
 }

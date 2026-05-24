@@ -14,3 +14,9 @@ body {
   background-color: var(--color-warm-bg);
   color: #555;
 }
+
+/* Blur-up image loading */
+.blur-up-img {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
