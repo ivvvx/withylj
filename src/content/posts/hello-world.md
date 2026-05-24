@@ -1,7 +1,7 @@
 ---
 title: "欢迎来到我们的小站"
 date: 2026-05-20
-cover: "/images/placeholder.jpg"
+cover: "/images/2026-05-20/cover.png"
 tags: ["日常"]
 summary: "我们的网站正式上线啦！以后这里会记录我们在一起的点点滴滴。"
 weather: "☀️ 晴"
