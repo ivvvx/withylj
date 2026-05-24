@@ -52,7 +52,6 @@ async function processImage(filepath) {
   let processed = 0;
 
   for (const size of SIZES) {
-    if (size >= originalWidth) continue;
     const output = await getOutputPath(filepath, `${size}w`);
     if (await newerThan(output, filepath)) continue;
 
