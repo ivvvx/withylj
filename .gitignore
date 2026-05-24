@@ -25,3 +25,9 @@ pnpm-debug.log*
 
 # brainstorming artifacts
 .superpowers/
+
+# optimized image variants (generated at build time)
+public/images/**/*-400w.webp
+public/images/**/*-800w.webp
+public/images/**/*-1200w.webp
+public/images/**/*-blur.webp

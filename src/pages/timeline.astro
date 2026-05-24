@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { responsiveCover } from '../utils/image';
 
 const base = import.meta.env.BASE_URL;
 const posts = await getCollection('posts');
@@ -27,9 +28,14 @@ const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.get
               })}
             </time>
             <article class="bg-warm-bg-pink rounded-xl overflow-hidden border border-warm-border group-hover:shadow-md transition-shadow">
-              {post.data.cover && (
+              {post.data.cover && (() => {
+                const coverUrl = post.data.cover.startsWith('/') ? `${base}/${post.data.cover.slice(1)}` : post.data.cover;
+                const responsive = responsiveCover(coverUrl);
+                return (
                 <img
-                  src={post.data.cover.startsWith('/') ? `${base}/${post.data.cover.slice(1)}` : post.data.cover}
+                  src={responsive.src}
+                  srcset={responsive.srcset}
+                  sizes={responsive.sizes}
                   alt={post.data.title}
                   class="w-full h-40 object-cover"
                   loading="lazy"
@@ -38,7 +44,7 @@ const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.get
                   width="600"
                   height="160"
                 />
-              )}
+              )})()}
               <div class="p-3">
                 <h2 class="font-bold text-gray-700">{post.data.title}</h2>
                 <p class="text-xs text-gray-400 mt-1 line-clamp-2">{post.data.summary}</p>

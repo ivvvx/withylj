@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { responsiveCover } from '../../utils/image';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
@@ -14,6 +15,8 @@ const base = import.meta.env.BASE_URL;
 const { post } = Astro.props;
 const { Content } = await render(post);
 const { title, date, tags, summary, cover, weather } = post.data;
+const coverUrl = cover ? (cover.startsWith('/') ? `${base}/${cover.slice(1)}` : cover) : null;
+const responsive = coverUrl ? responsiveCover(coverUrl) : null;
 
 const allPosts = await getCollection('posts');
 const sortedPosts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
@@ -44,8 +47,8 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
       )}
     </header>
 
-    {cover && (
-      <img src={cover.startsWith('/') ? `${base}/${cover.slice(1)}` : cover} alt={title} class="w-full rounded-xl mb-6" loading="eager" decoding="async" width="800" height="450" />
+    {responsive && (
+      <img src={responsive.src} srcset={responsive.srcset} sizes={responsive.sizes} alt={title} class="w-full rounded-xl mb-6" loading="eager" decoding="async" width="800" height="450" />
     )}
 
     <div class="prose prose-sm max-w-none text-gray-600 leading-relaxed">
