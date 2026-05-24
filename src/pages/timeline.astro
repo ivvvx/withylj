@@ -33,6 +33,10 @@ const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.get
                   alt={post.data.title}
                   class="w-full h-40 object-cover"
                   loading="lazy"
+                  decoding="async"
+                  fetchpriority="low"
+                  width="600"
+                  height="160"
                 />
               )}
               <div class="p-3">

@@ -45,7 +45,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
     </header>
 
     {cover && (
-      <img src={cover.startsWith('/') ? `${base}/${cover.slice(1)}` : cover} alt={title} class="w-full rounded-xl mb-6" />
+      <img src={cover.startsWith('/') ? `${base}/${cover.slice(1)}` : cover} alt={title} class="w-full rounded-xl mb-6" loading="eager" decoding="async" width="800" height="450" />
     )}
 
     <div class="prose prose-sm max-w-none text-gray-600 leading-relaxed">

@@ -20,6 +20,9 @@ const coverUrl = cover ? (cover.startsWith('/') ? `${base}/${cover.slice(1)}` : 
         alt={title}
         class="w-full h-full object-cover"
         loading="lazy"
+        decoding="async"
+        width="400"
+        height="300"
       />
     </div>
     <div class="p-3">
