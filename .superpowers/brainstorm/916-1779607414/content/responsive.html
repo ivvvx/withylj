@@ -1,0 +1,133 @@
+<h2>响应式适配方案</h2>
+<p class="subtitle">移动优先（Mobile First），Tailwind CSS 断点自动适配</p>
+
+<div class="split">
+  <!-- Desktop -->
+  <div class="mockup">
+    <div class="mockup-header">💻 桌面端 (≥768px)</div>
+    <div class="mockup-body" style="font-size: 11px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 16px; border-bottom: 1px solid #f0e0e0; background: #fffcfc;">
+        <div style="font-family: serif; font-size: 14px; color: #d4786e; font-weight: bold;">🌸 With Ylj</div>
+        <div style="display: flex; gap: 14px; font-size: 10px; color: #d4786e;">
+          <span>首页</span><span>时间线</span><span>相册</span><span>关于</span>
+        </div>
+      </div>
+      <div style="text-align: center; padding: 30px 16px 24px; background: linear-gradient(180deg, #fff5f5, #fffcfc);">
+        <div style="font-size: 32px;">🌸</div>
+        <div style="font-family: serif; font-size: 20px; color: #d4786e; font-weight: bold;">With Ylj</div>
+        <div style="font-size: 11px; color: #c0978c; line-height: 1.8;">记录和丽娟在一起的小日子 · 每一张照片，都是我们的故事</div>
+      </div>
+      <div style="padding: 12px;">
+        <div style="text-align: center; font-size: 11px; color: #d4786e; font-weight: bold; margin-bottom: 8px;">📝 最近更新</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;">
+          <div style="background: #fff5f5; border-radius: 8px; overflow: hidden;">
+            <div class="placeholder" style="height: 70px; background: #ffe0e0;"></div>
+            <div style="padding: 6px; font-size: 9px; color: #666;">周末公园散步</div>
+          </div>
+          <div style="background: #fff5f5; border-radius: 8px; overflow: hidden;">
+            <div class="placeholder" style="height: 70px; background: #ffe0e0;"></div>
+            <div style="padding: 6px; font-size: 9px; color: #666;">纪念日晚餐</div>
+          </div>
+          <div style="background: #fff5f5; border-radius: 8px; overflow: hidden;">
+            <div class="placeholder" style="height: 70px; background: #ffe0e0;"></div>
+            <div style="padding: 6px; font-size: 9px; color: #666;">一起做蛋糕</div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align: center; font-size: 10px; color: #e0c8c0; padding: 8px;">· · ✿ · ·</div>
+      <div style="text-align: center; font-size: 11px; color: #d4786e; font-weight: bold;">🏷️ 话题</div>
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; padding: 6px 12px;">
+        <span style="background: #fff0ee; color: #d4786e; padding: 2px 8px; border-radius: 10px; font-size: 8px;">🌸 春日</span>
+        <span style="background: #fff0ee; color: #d4786e; padding: 2px 8px; border-radius: 10px; font-size: 8px;">🌿 日常</span>
+        <span style="background: #fff0ee; color: #d4786e; padding: 2px 8px; border-radius: 10px; font-size: 8px;">❤️ 纪念日</span>
+        <span style="background: #fff0ee; color: #d4786e; padding: 2px 8px; border-radius: 10px; font-size: 8px;">✈️ 旅行</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile -->
+  <div class="mockup" style="max-width: 280px;">
+    <div class="mockup-header">📱 移动端 (&lt;768px)</div>
+    <div class="mockup-body" style="font-size: 11px;">
+      <!-- Mobile Nav with hamburger -->
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; border-bottom: 1px solid #f0e0e0; background: #fffcfc;">
+        <div style="font-family: serif; font-size: 13px; color: #d4786e; font-weight: bold;">🌸 With Ylj</div>
+        <div style="font-size: 16px; color: #d4786e;">☰</div>
+      </div>
+      <!-- Hero - single column -->
+      <div style="text-align: center; padding: 28px 14px 20px; background: linear-gradient(180deg, #fff5f5, #fffcfc);">
+        <div style="font-size: 28px;">🌸</div>
+        <div style="font-family: serif; font-size: 18px; color: #d4786e; font-weight: bold;">With Ylj</div>
+        <div style="font-size: 10px; color: #c0978c; line-height: 1.7;">记录和丽娟在一起的小日子<br/>每一张照片，都是我们的故事</div>
+      </div>
+      <!-- Cards - 2 columns on mobile -->
+      <div style="padding: 8px;">
+        <div style="text-align: center; font-size: 10px; color: #d4786e; font-weight: bold; margin-bottom: 6px;">📝 最近更新</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+          <div style="background: #fff5f5; border-radius: 8px; overflow: hidden;">
+            <div class="placeholder" style="height: 60px; background: #ffe0e0;"></div>
+            <div style="padding: 5px; font-size: 8px; color: #666;">周末公园散步</div>
+          </div>
+          <div style="background: #fff5f5; border-radius: 8px; overflow: hidden;">
+            <div class="placeholder" style="height: 60px; background: #ffe0e0;"></div>
+            <div style="padding: 5px; font-size: 8px; color: #666;">纪念日晚餐</div>
+          </div>
+          <div style="background: #fff5f5; border-radius: 8px; overflow: hidden;">
+            <div class="placeholder" style="height: 60px; background: #ffe0e0;"></div>
+            <div style="padding: 5px; font-size: 8px; color: #666;">一起做蛋糕</div>
+          </div>
+          <div style="background: #fff5f5; border-radius: 8px; overflow: hidden;">
+            <div class="placeholder" style="height: 60px; background: #ffe0e0;"></div>
+            <div style="padding: 5px; font-size: 8px; color: #666;">去看烟花</div>
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: 8px;">
+          <span style="background: #fff0ee; color: #d4786e; padding: 4px 14px; border-radius: 12px; font-size: 9px;">查看全部 →</span>
+        </div>
+      </div>
+      <div style="text-align: center; font-size: 9px; color: #e0c8c0; padding: 6px;">· · ✿ · ·</div>
+      <!-- Tags - smaller, 3 per row -->
+      <div style="text-align: center; font-size: 10px; color: #d4786e; font-weight: bold;">🏷️ 话题</div>
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 3px; padding: 4px 8px;">
+        <span style="background: #fff0ee; color: #d4786e; padding: 2px 7px; border-radius: 10px; font-size: 7px;">🌸</span>
+        <span style="background: #fff0ee; color: #d4786e; padding: 2px 7px; border-radius: 10px; font-size: 7px;">🌿</span>
+        <span style="background: #fff0ee; color: #d4786e; padding: 2px 7px; border-radius: 10px; font-size: 7px;">❤️</span>
+        <span style="background: #fff0ee; color: #d4786e; padding: 2px 7px; border-radius: 10px; font-size: 7px;">✈️</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top: 24px;">
+  <h3>适配策略 — Tailwind CSS 断点</h3>
+  <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+    <tr style="background: #fff5f5;">
+      <td style="padding: 10px; border: 1px solid #fce8e4; font-weight: bold; color: #d4786e;">断点</td>
+      <td style="padding: 10px; border: 1px solid #fce8e4; font-weight: bold; color: #d4786e;">屏幕</td>
+      <td style="padding: 10px; border: 1px solid #fce8e4; font-weight: bold; color: #d4786e;">适配行为</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 10px; border: 1px solid #fce8e4;">默认（移动优先）</td>
+      <td style="padding: 8px 10px; border: 1px solid #fce8e4;">&lt;768px</td>
+      <td style="padding: 8px 10px; border: 1px solid #fce8e4;">汉堡菜单，2 列卡片，单列时间线，图片全宽</td>
+    </tr>
+    <tr style="background: #fffaf8;">
+      <td style="padding: 8px 10px; border: 1px solid #fce8e4;">md (≥768px)</td>
+      <td style="padding: 8px 10px; border: 1px solid #fce8e4;">平板</td>
+      <td style="padding: 8px 10px; border: 1px solid #fce8e4;">顶部导航展开，3 列卡片</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 10px; border: 1px solid #fce8e4;">lg (≥1024px)</td>
+      <td style="padding: 8px 10px; border: 1px solid #fce8e4;">桌面</td>
+      <td style="padding: 8px 10px; border: 1px solid #fce8e4;">内容区最大宽度 960px 居中，更大的 Hero 区域</td>
+    </tr>
+  </table>
+</div>
+
+<div style="background: #fff8f0; border-left: 4px solid #f0c060; padding: 12px 16px; border-radius: 4px; margin-top: 16px;">
+  <strong>⚠️ 关键原则：</strong><br/>
+  • 图片始终用 <code>max-width: 100%; height: auto</code>，不会溢出<br/>
+  • 用 Tailwind 的 <code>grid-cols-2 md:grid-cols-3</code> 控制列数<br/>
+  • 字体用 <code>clamp()</code> 或 Tailwind 响应式类，不会在小屏过大<br/>
+  • <strong>开发时先用浏览器 DevTools 的手机模拟器测试，再在真机上确认</strong>
+</div>

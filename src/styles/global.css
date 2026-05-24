@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@theme {
+  --color-warm-pink: #d4786e;
+  --color-warm-pink-light: #f8c8c4;
+  --color-warm-bg: #fffcfc;
+  --color-warm-bg-pink: #fff5f5;
+  --color-warm-gray: #c0978c;
+  --color-warm-border: #fce8e4;
+}
+
+body {
+  font-family: 'Georgia', 'Noto Serif SC', serif;
+  background-color: var(--color-warm-bg);
+  color: #555;
+}

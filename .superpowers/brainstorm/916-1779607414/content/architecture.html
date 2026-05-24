@@ -1,0 +1,72 @@
+<h2>整体架构</h2>
+<p class="subtitle">With Ylj — 方案 A 技术栈与数据流</p>
+
+<div class="section">
+  <h3>技术选型</h3>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+    <div style="background: #fff5f5; border: 1px solid #f8c8c4; border-radius: 8px; padding: 16px;">
+      <div style="font-weight: bold; color: #d4786e; margin-bottom: 6px;">🏗️ Astro</div>
+      <div style="font-size: 14px; color: #555;">静态网站生成框架，构建速度快，对图片内容友好，完美适配 GitHub Pages</div>
+    </div>
+    <div style="background: #fff5f5; border: 1px solid #f8c8c4; border-radius: 8px; padding: 16px;">
+      <div style="font-weight: bold; color: #d4786e; margin-bottom: 6px;">✍️ Decap CMS</div>
+      <div style="font-size: 14px; color: #555;">免费 Git-based 内容管理，网页端写文章传图，自动推到 GitHub</div>
+    </div>
+    <div style="background: #fff5f5; border: 1px solid #f8c8c4; border-radius: 8px; padding: 16px;">
+      <div style="font-weight: bold; color: #d4786e; margin-bottom: 6px;">🚀 GitHub Pages</div>
+      <div style="font-size: 14px; color: #555;">免费静态托管，每次内容更新自动部署</div>
+    </div>
+    <div style="background: #fff5f5; border: 1px solid #f8c8c4; border-radius: 8px; padding: 16px;">
+      <div style="font-weight: bold; color: #d4786e; margin-bottom: 6px;">🎨 Tailwind CSS</div>
+      <div style="font-size: 14px; color: #555;">快速实现温暖日系风格，易定制</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>数据流</h3>
+  <div style="text-align: center; padding: 24px 0;">
+    <div style="display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap;">
+      <div style="background: #f8c8c4; color: white; padding: 16px 24px; border-radius: 12px;">
+        <div style="font-weight: bold;">你在 Decap CMS</div>
+        <div style="font-size: 13px; opacity: 0.9;">写文章 + 传照片</div>
+      </div>
+      <div style="font-size: 24px; color: #d4786e;">→</div>
+      <div style="background: #f8c8c4; color: white; padding: 16px 24px; border-radius: 12px;">
+        <div style="font-weight: bold;">GitHub 仓库</div>
+        <div style="font-size: 13px; opacity: 0.9;">Markdown + 图片文件</div>
+      </div>
+      <div style="font-size: 24px; color: #d4786e;">→</div>
+      <div style="background: #f8c8c4; color: white; padding: 16px 24px; border-radius: 12px;">
+        <div style="font-weight: bold;">GitHub Actions</div>
+        <div style="font-size: 13px; opacity: 0.9;">自动构建 Astro 站点</div>
+      </div>
+      <div style="font-size: 24px; color: #d4786e;">→</div>
+      <div style="background: #f8c8c4; color: white; padding: 16px 24px; border-radius: 12px;">
+        <div style="font-weight: bold;">GitHub Pages</div>
+        <div style="font-size: 13px; opacity: 0.9;">访客看到的网站</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>站点结构</h3>
+  <div style="display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; padding: 16px 0;">
+    <div style="background: #fff0f0; border: 2px solid #e8a0a0; padding: 12px 20px; border-radius: 8px; font-weight: bold; color: #d4786e;">首页</div>
+    <div style="color: #c0978c;">→</div>
+    <div style="background: #fff0f0; border: 2px solid #e8a0a0; padding: 12px 20px; border-radius: 8px; font-weight: bold; color: #d4786e;">时间线</div>
+    <div style="color: #c0978c;">→</div>
+    <div style="background: #fff0f0; border: 2px solid #e8a0a0; padding: 12px 20px; border-radius: 8px; font-weight: bold; color: #d4786e;">相册/标签</div>
+    <div style="color: #c0978c;">→</div>
+    <div style="background: #fff0f0; border: 2px solid #e8a0a0; padding: 12px 20px; border-radius: 8px; font-weight: bold; color: #d4786e;">关于我们</div>
+    <div style="color: #c0978c;">→</div>
+    <div style="background: #fff5f5; border: 2px dashed #e8a0a0; padding: 12px 20px; border-radius: 8px; font-weight: bold; color: #d4786e;">文章详情</div>
+  </div>
+  <p style="text-align: center; font-size: 13px; color: #999;">虚线 = 通过点击进入的页面</p>
+</div>
+
+<div style="background: #fff8f0; border-left: 4px solid #f0c060; padding: 12px 16px; border-radius: 4px; margin-top: 24px;">
+  <strong>📝 每篇文章的数据结构：</strong><br>
+  标题 · 日期 · 正文 · 图片组 · 标签（如 #旅行 #纪念日 #日常）· 摘要
+</div>

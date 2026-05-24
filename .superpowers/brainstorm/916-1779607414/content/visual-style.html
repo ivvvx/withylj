@@ -1,0 +1,60 @@
+<h2>选择你喜欢的视觉风格</h2>
+<p class="subtitle">这是网站给访客的第一印象，选一个最接近你感觉的方向</p>
+
+<div class="cards">
+  <div class="card" data-choice="warm" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background: linear-gradient(135deg, #fff5f5, #ffe0e0, #fff0f0); height: 180px; display: flex; align-items: center; justify-content: center; border-radius: 12px 12px 0 0; flex-direction: column; gap: 8px;">
+        <div style="font-size: 28px;">🌸</div>
+        <div style="font-family: serif; font-size: 18px; color: #d4786e; font-weight: bold;">我们的日常</div>
+        <div style="font-size: 12px; color: #c0978c;">— 2024.03.15 —</div>
+        <div style="display: flex; gap: 6px; margin-top: 4px;">
+          <span style="background: #f8c8c4; color: white; padding: 2px 10px; border-radius: 20px; font-size: 10px;">🌿 周末</span>
+          <span style="background: #f8c8c4; color: white; padding: 2px 10px; border-radius: 20px; font-size: 10px;">📷 拍照</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>温暖日系</h3>
+      <p>柔和暖色调、圆角卡片、大量留白，像一本温馨的手账</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="modern" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background: linear-gradient(135deg, #fafafa, #f0f0f0, #fafafa); height: 180px; display: flex; align-items: center; justify-content: center; border-radius: 12px 12px 0 0; flex-direction: column; gap: 8px;">
+        <div style="font-size: 28px;">✨</div>
+        <div style="font-family: 'Georgia', serif; font-size: 18px; color: #333; font-weight: bold; letter-spacing: 2px;">我们的日常</div>
+        <div style="width: 30px; height: 1px; background: #999;"></div>
+        <div style="font-size: 12px; color: #888;">2024.03.15</div>
+        <div style="display: flex; gap: 8px; margin-top: 4px;">
+          <span style="border: 1px solid #ccc; padding: 2px 10px; border-radius: 2px; font-size: 10px; color: #666;">#周末</span>
+          <span style="border: 1px solid #ccc; padding: 2px 10px; border-radius: 2px; font-size: 10px; color: #666;">#拍照</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>简约现代</h3>
+      <p>黑白灰基调、干净线条、强调排版，像一本精致的杂志</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="vintage" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background: linear-gradient(135deg, #fdf6ed, #f5e6d0, #fdf6ed); height: 180px; display: flex; align-items: center; justify-content: center; border-radius: 12px 12px 0 0; flex-direction: column; gap: 8px; position: relative;">
+        <div style="position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 3px); border-radius: 12px 12px 0 0;"></div>
+        <div style="font-size: 28px; z-index: 1;">📷</div>
+        <div style="font-family: 'Courier New', monospace; font-size: 18px; color: #8b6914; font-weight: bold; z-index: 1;">我们的日常</div>
+        <div style="font-size: 12px; color: #a08050; z-index: 1; font-style: italic;">2024 年 3 月 15 日</div>
+        <div style="display: flex; gap: 6px; margin-top: 4px; z-index: 1;">
+          <span style="background: #d4a853; color: white; padding: 2px 10px; font-size: 10px; font-style: italic;">周末</span>
+          <span style="background: #d4a853; color: white; padding: 2px 10px; font-size: 10px; font-style: italic;">拍照</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>复古胶片</h3>
+      <p>暖黄底色、纹理质感、老照片氛围，像一本旧相册</p>
+    </div>
+  </div>
+</div>
