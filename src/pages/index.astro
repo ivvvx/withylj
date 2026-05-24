@@ -45,7 +45,7 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags ?? []))];
         {recentPosts.map((post) => <PostCard post={post} />)}
       </div>
     ) : (
-      <p class="text-center text-gray-400 text-sm py-8">还没有文章，去后台添加第一篇吧~</p>
+      <p class="text-center text-gray-400 text-sm py-8">还没有文章，去添加第一篇吧~</p>
     )}
 
     {sortedPosts.length > 6 && (
