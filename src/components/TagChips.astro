@@ -1,0 +1,36 @@
+---
+interface Props {
+  tags: string[];
+  activeTag?: string;
+  baseUrl?: string;
+}
+
+const { tags, activeTag, baseUrl = '/albums' } = Astro.props;
+---
+
+<div class="flex flex-wrap justify-center gap-2">
+  <a
+    href={baseUrl}
+    class:list={[
+      'px-3 py-1 rounded-full text-xs font-medium transition-colors',
+      !activeTag
+        ? 'bg-warm-pink text-white'
+        : 'bg-warm-bg-pink text-warm-pink border border-warm-pink-light hover:bg-warm-pink-light/30',
+    ]}
+  >
+    全部
+  </a>
+  {tags.map((tag) => (
+    <a
+      href={`${baseUrl}?tag=${encodeURIComponent(tag)}`}
+      class:list={[
+        'px-3 py-1 rounded-full text-xs font-medium transition-colors',
+        activeTag === tag
+          ? 'bg-warm-pink text-white'
+          : 'bg-warm-bg-pink text-warm-pink border border-warm-pink-light hover:bg-warm-pink-light/30',
+      ]}
+    >
+      {tag}
+    </a>
+  ))}
+</div>

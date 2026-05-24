@@ -1,0 +1,39 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+const { title, date, cover, tags, summary } = post.data;
+const coverUrl = cover ?? '/images/placeholder.jpg';
+---
+
+<article class="bg-warm-bg-pink rounded-2xl overflow-hidden border border-warm-border hover:shadow-md transition-shadow">
+  <a href={`/posts/${post.id}`}>
+    <div class="aspect-[4/3] bg-warm-pink-light/30 overflow-hidden">
+      <img
+        src={coverUrl}
+        alt={title}
+        class="w-full h-full object-cover"
+        loading="lazy"
+      />
+    </div>
+    <div class="p-3">
+      <h3 class="text-sm font-bold text-gray-700 leading-snug">{title}</h3>
+      <p class="text-xs text-warm-gray mt-1">
+        {new Date(date).toLocaleDateString('zh-CN')}
+      </p>
+      {tags && tags.length > 0 && (
+        <div class="flex flex-wrap gap-1 mt-2">
+          {tags.map((tag: string) => (
+            <span class="bg-warm-pink-light/50 text-warm-pink text-[10px] px-2 py-0.5 rounded-full">
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  </a>
+</article>
