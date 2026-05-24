@@ -10,6 +10,7 @@ export async function getStaticPaths() {
   }));
 }
 
+const base = import.meta.env.BASE_URL;
 const { post } = Astro.props;
 const { Content } = await render(post);
 const { title, date, tags, summary, cover, weather } = post.data;
@@ -34,7 +35,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
       {tags && tags.length > 0 && (
         <div class="flex flex-wrap justify-center gap-1.5 mt-3">
           {tags.map((tag: string) => (
-            <a href={`/albums?tag=${encodeURIComponent(tag)}`}
+            <a href={`${base}/albums/?tag=${encodeURIComponent(tag)}`}
                class="bg-warm-pink-light/70 text-warm-pink text-[10px] px-2.5 py-0.5 rounded-full hover:bg-warm-pink-light transition-colors">
               {tag}
             </a>
@@ -44,7 +45,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
     </header>
 
     {cover && (
-      <img src={cover} alt={title} class="w-full rounded-xl mb-6" />
+      <img src={cover.startsWith('/') ? `${base}/${cover.slice(1)}` : cover} alt={title} class="w-full rounded-xl mb-6" />
     )}
 
     <div class="prose prose-sm max-w-none text-gray-600 leading-relaxed">
@@ -55,10 +56,10 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 
     <nav class="flex justify-between text-sm">
       {prevPost ? (
-        <a href={`/posts/${prevPost.id}`} class="text-warm-pink hover:underline">← {prevPost.data.title}</a>
+        <a href={`${base}/posts/${prevPost.id}/`} class="text-warm-pink hover:underline">← {prevPost.data.title}</a>
       ) : <span />}
       {nextPost ? (
-        <a href={`/posts/${nextPost.id}`} class="text-warm-pink hover:underline">{nextPost.data.title} →</a>
+        <a href={`${base}/posts/${nextPost.id}/`} class="text-warm-pink hover:underline">{nextPost.data.title} →</a>
       ) : <span />}
     </nav>
   </article>

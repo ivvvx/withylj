@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
+const base = import.meta.env.BASE_URL;
 const posts = await getCollection('posts');
 const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
@@ -16,7 +17,7 @@ const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.get
     ) : (
       <div class="border-l-2 border-warm-pink-light/60 ml-2">
         {sortedPosts.map((post) => (
-          <a href={`/posts/${post.id}`} class="block pl-4 pb-6 group">
+          <a href={`${base}/posts/${post.id}/`} class="block pl-4 pb-6 group">
             <time class="text-xs text-warm-gray mb-2 block">
               {new Date(post.data.date).toLocaleDateString('zh-CN', {
                 year: 'numeric',
@@ -28,7 +29,7 @@ const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.get
             <article class="bg-warm-bg-pink rounded-xl overflow-hidden border border-warm-border group-hover:shadow-md transition-shadow">
               {post.data.cover && (
                 <img
-                  src={post.data.cover}
+                  src={post.data.cover.startsWith('/') ? `${base}/${post.data.cover.slice(1)}` : post.data.cover}
                   alt={post.data.title}
                   class="w-full h-40 object-cover"
                   loading="lazy"

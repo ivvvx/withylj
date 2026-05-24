@@ -1,17 +1,19 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 
+const base = import.meta.env.BASE_URL;
+
 interface Props {
   post: CollectionEntry<'posts'>;
 }
 
 const { post } = Astro.props;
 const { title, date, cover, tags, summary } = post.data;
-const coverUrl = cover ?? '/images/placeholder.jpg';
+const coverUrl = cover ? (cover.startsWith('/') ? `${base}/${cover.slice(1)}` : cover) : `${base}/images/placeholder.jpg`;
 ---
 
 <article class="bg-warm-bg-pink rounded-2xl overflow-hidden border border-warm-border hover:shadow-md transition-shadow">
-  <a href={`/posts/${post.id}`}>
+  <a href={`${base}/posts/${post.id}/`}>
     <div class="aspect-[4/3] bg-warm-pink-light/30 overflow-hidden">
       <img
         src={coverUrl}
