@@ -15,24 +15,32 @@ const currentPath = Astro.url.pathname;
       🌸 With Ylj
     </a>
 
-    <!-- Desktop nav -->
-    <nav class="hidden md:flex gap-6 text-sm">
-      {navItems.map((item) => (
-        <a
-          href={item.href}
-          class={currentPath === item.href
-            ? 'text-warm-pink font-medium'
-            : 'text-gray-400 hover:text-warm-pink transition-colors'}
-        >
-          {item.label}
-        </a>
-      ))}
-    </nav>
+    <div class="flex items-center gap-4">
+      <!-- Desktop nav -->
+      <nav class="hidden md:flex gap-6 text-sm">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class={currentPath === item.href
+              ? 'text-warm-pink font-medium'
+              : 'text-gray-400 hover:text-warm-pink transition-colors'}
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
 
-    <!-- Mobile hamburger -->
-    <button id="menu-toggle" class="md:hidden text-warm-pink text-xl" aria-label="菜单">
-      ☰
-    </button>
+      <!-- Theme toggle -->
+      <button id="theme-toggle" class="text-sm text-warm-gray hover:text-warm-pink transition-colors cursor-pointer" aria-label="切换主题">
+        <span class="dark:hidden">🌙</span>
+        <span class="hidden dark:inline">☀️</span>
+      </button>
+
+      <!-- Mobile hamburger -->
+      <button id="menu-toggle" class="md:hidden text-warm-pink text-xl" aria-label="菜单">
+        ☰
+      </button>
+    </div>
   </div>
 
   <!-- Mobile menu (hidden by default) -->
@@ -53,5 +61,12 @@ const currentPath = Astro.url.pathname;
   const menu = document.getElementById('mobile-menu');
   btn?.addEventListener('click', () => {
     menu?.classList.toggle('hidden');
+  });
+
+  const themeBtn = document.getElementById('theme-toggle');
+  themeBtn?.addEventListener('click', () => {
+    const html = document.documentElement;
+    html.classList.toggle('dark');
+    localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
   });
 </script>

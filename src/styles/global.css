@@ -9,8 +9,23 @@
   --color-warm-border: #fce8e4;
 }
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+.dark {
+  --color-warm-pink: #e8988a;
+  --color-warm-pink-light: #5a3a35;
+  --color-warm-bg: #1a1412;
+  --color-warm-bg-pink: #2a1f1c;
+  --color-warm-gray: #8a7a70;
+  --color-warm-border: #3a2a25;
+}
+
 body {
   font-family: 'Georgia', 'Noto Serif SC', serif;
   background-color: var(--color-warm-bg);
   color: #555;
+}
+
+.dark body {
+  color: #c8b8ad;
 }

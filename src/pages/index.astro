@@ -28,6 +28,7 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags ?? []))];
       每一张照片，都是我们的故事
     </p>
     <p class="text-xs text-gray-300 mt-3">— since 2025.11.27 —</p>
+    <p class="text-sm text-warm-pink font-bold mt-2" id="love-days">在一起的第 ... 天</p>
   </section>
 
   <!-- Divider -->
@@ -70,3 +71,17 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags ?? []))];
     </section>
   )}
 </BaseLayout>
+
+<script>
+  const start = new Date('2025-11-27');
+  const el = document.getElementById('love-days');
+  if (el) {
+    const update = () => {
+      const now = new Date();
+      const diff = Math.floor((now - start) / (1000 * 60 * 60 * 24));
+      el.textContent = `在一起的第 ${diff} 天 ❤️`;
+    };
+    update();
+    setInterval(update, 60_000);
+  }
+</script>
