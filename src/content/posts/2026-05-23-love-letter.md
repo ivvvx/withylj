@@ -1,7 +1,7 @@
 ---
 title: "致糯米团的一封信"
 date: 2026-05-23
-cover: "/images/us/us-photo-05.jpg"
+cover: "/images/us/us-photo-04.jpg"
 tags: ["情书", "碎碎念"]
 summary: "有些话平时不好意思说，那就写在这里吧。"
 weather: "🌙 夜"
