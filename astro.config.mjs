@@ -9,8 +9,8 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
   markdown: {
-    rehypePlugins: [[rehypeImg, '/withylj']],
+    rehypePlugins: [[rehypeImg, '/']],
   },
-  site: 'https://ivvvx.github.io',
-  base: '/withylj',
+  site: 'https://withylj.pages.dev',
+  base: '/',
 });

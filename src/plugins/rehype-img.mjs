@@ -13,7 +13,8 @@ export function rehypeImg(base) {
         node.properties.src = src;
       }
 
-      const imgPath = src.startsWith(base) ? src.slice(base.length) : src;
+      const rawPath = src.startsWith(base) ? src.slice(base.length) : src;
+      const imgPath = rawPath.startsWith('/') ? rawPath : '/' + rawPath;
       if (!imgPath.startsWith('/images/')) return;
 
       const lastDot = src.lastIndexOf('.');
