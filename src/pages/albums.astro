@@ -2,39 +2,100 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PostCard from '../components/PostCard.astro';
-import TagChips from '../components/TagChips.astro';
 
+const base = import.meta.env.BASE_URL;
 const posts = await getCollection('posts');
 const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 const allTags = [...new Set(posts.flatMap((p) => p.data.tags ?? []))];
-
-const url = new URL(Astro.request.url);
-const activeTag = url.searchParams.get('tag') || undefined;
-
-const filteredPosts = activeTag
-  ? sortedPosts.filter((p) => p.data.tags?.includes(activeTag))
-  : sortedPosts;
 ---
 
-<BaseLayout title={activeTag ? `${activeTag} · 相册` : '相册'}>
+<BaseLayout title="相册">
   <section class="max-w-3xl mx-auto px-4 py-8">
     <h1 class="font-serif text-2xl font-bold text-warm-pink text-center mb-2">🖼️ 相册</h1>
-    <p class="text-xs text-warm-gray text-center mb-6">
-      {activeTag ? `正在查看 #${activeTag}` : '按话题浏览我们的照片'}
-    </p>
+    <p class="text-xs text-warm-gray text-center mb-6" id="album-hint">按话题浏览我们的照片</p>
 
-    <div class="mb-8">
-      <TagChips tags={allTags} activeTag={activeTag} />
+    <!-- Tag filter chips -->
+    <div class="flex flex-wrap justify-center gap-2 mb-8" id="tag-chips">
+      <button data-tag="" class="tag-chip px-3 py-1 rounded-full text-xs font-medium transition-colors bg-warm-pink text-white cursor-pointer">
+        全部
+      </button>
+      {allTags.map((tag) => (
+        <button data-tag={tag} class="tag-chip px-3 py-1 rounded-full text-xs font-medium transition-colors bg-warm-bg-pink text-warm-pink border border-warm-pink-light hover:bg-warm-pink-light/30 cursor-pointer">
+          {tag}
+        </button>
+      ))}
     </div>
 
-    {filteredPosts.length > 0 ? (
-      <div class="columns-2 md:columns-3 gap-3">
-        {filteredPosts.map((post) => <PostCard post={post} album />)}
-      </div>
-    ) : (
-      <p class="text-center text-gray-400 text-sm py-12">
-        {activeTag ? '这个标签下还没有文章~' : '还没有文章~'}
-      </p>
-    )}
+    <!-- Post grid -->
+    <div class="columns-2 md:columns-3 gap-3" id="album-grid">
+      {sortedPosts.map((post) => (
+        <div class="album-item break-inside-avoid mb-3" data-tags={JSON.stringify(post.data.tags ?? [])}>
+          <PostCard post={post} album />
+        </div>
+      ))}
+    </div>
+
+    <p class="text-center text-gray-400 text-sm py-12 hidden" id="album-empty">
+      这个标签下还没有文章~
+    </p>
   </section>
 </BaseLayout>
+
+<script>
+  function initAlbumFilter() {
+    const chips = document.querySelectorAll('.tag-chip');
+    const items = document.querySelectorAll('.album-item');
+    const hint = document.getElementById('album-hint');
+    const empty = document.getElementById('album-empty');
+    const grid = document.getElementById('album-grid');
+
+    // Read initial tag from URL
+    const params = new URLSearchParams(window.location.search);
+    const initialTag = params.get('tag') || '';
+
+    function setActiveTag(tag) {
+      chips.forEach(c => {
+        const isActive = c.dataset.tag === tag;
+        c.className = isActive
+          ? 'tag-chip px-3 py-1 rounded-full text-xs font-medium transition-colors bg-warm-pink text-white cursor-pointer'
+          : 'tag-chip px-3 py-1 rounded-full text-xs font-medium transition-colors bg-warm-bg-pink text-warm-pink border border-warm-pink-light hover:bg-warm-pink-light/30 cursor-pointer';
+      });
+    }
+
+    function filterByTag(tag) {
+      let visible = 0;
+      items.forEach(item => {
+        const tags = JSON.parse(item.dataset.tags || '[]');
+        const show = !tag || tags.includes(tag);
+        item.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      setActiveTag(tag);
+      hint.textContent = tag ? `正在查看 #${tag}` : '按话题浏览我们的照片';
+      empty.classList.toggle('hidden', visible > 0);
+      grid.classList.toggle('hidden', visible === 0);
+
+      // Update URL without navigation
+      const url = new URL(window.location);
+      if (tag) {
+        url.searchParams.set('tag', tag);
+      } else {
+        url.searchParams.delete('tag');
+      }
+      history.replaceState(null, '', url);
+    }
+
+    // Click handlers
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        filterByTag(chip.dataset.tag || '');
+      });
+    });
+
+    // Apply initial filter
+    filterByTag(initialTag);
+  }
+
+  initAlbumFilter();
+  document.addEventListener('astro:page-load', initAlbumFilter);
+</script>
