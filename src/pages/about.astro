@@ -5,11 +5,17 @@ const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout title="关于我们">
-  <section class="max-w-md mx-auto px-4 py-12 text-center">
-    <div class="text-4xl mb-3">🌸</div>
-    <h1 class="font-serif text-2xl font-bold text-warm-pink mb-4">关于我们</h1>
+  <section class="max-w-2xl mx-auto px-4 py-12">
 
-    <div class="w-28 h-28 mx-auto mb-4 rounded-full bg-warm-pink-light/30 flex items-center justify-center text-3xl text-warm-pink/50 overflow-hidden">
+    <!-- 标题 -->
+    <div class="text-center mb-10">
+      <div class="text-4xl mb-3">🌸</div>
+      <h1 class="font-serif text-2xl font-bold text-warm-pink mb-2">关于我们</h1>
+      <p class="text-xs text-warm-gray">两个人的小世界</p>
+    </div>
+
+    <!-- 合照 -->
+    <div class="w-32 h-32 mx-auto mb-8 rounded-full bg-warm-pink-light/30 flex items-center justify-center overflow-hidden">
       <img
         src={`${base}/images/us/us.jpg`}
         alt="我们"
@@ -19,13 +25,61 @@ const base = import.meta.env.BASE_URL;
       <span style="display:none">💕</span>
     </div>
 
-    <p class="text-sm text-gray-600 leading-loose mb-5">
-      这个网站用来记录我和糯米团在一起的点点滴滴。<br/>
-      生活里的每一个瞬间，都值得被记住。<br/>
-      谢谢你来看我们的故事 💕
-    </p>
+    <!-- 我们 -->
+    <div class="mb-10">
+      <h2 class="font-serif text-lg font-bold text-warm-pink text-center mb-4">我们</h2>
+      <p class="text-sm text-gray-600 leading-loose text-center">
+        我们是 Y 和 L。<br/>
+        2025 年冬天相识，慢慢走到了一起。<br/>
+        一个在南方，一个在北方，隔着屏幕谈恋爱。<br/>
+        他叫她"糯米团"，因为他觉得她软软糯糯的。<br/>
+        她叫他...不告诉你 🫣
+      </p>
+    </div>
 
-    <div class="w-8 h-px bg-warm-pink-light/60 mx-auto mb-2"></div>
-    <p class="text-xs text-warm-gray">—— Y &amp; L</p>
+    <div class="w-12 h-px bg-warm-pink-light/60 mx-auto mb-10"></div>
+
+    <!-- 时间线 -->
+    <div class="mb-10">
+      <h2 class="font-serif text-lg font-bold text-warm-pink text-center mb-6">我们的时间线</h2>
+
+      <div class="space-y-5 relative before:absolute before:left-4 before:top-0 before:bottom-0 before:w-px before:bg-warm-pink-light/50">
+        {[
+          { date: '2025.11.27', title: '在一起的那天', desc: '一个普通的冬天，变成了不普通的日子' },
+          { date: '2026.01.10', title: '第一次约会', desc: '火锅、毛肚、还有白色羽绒服的你' },
+          { date: '2026.02.14', title: '第一个情人节', desc: '异地情人节，视频里一起看了电影' },
+          { date: '2026.05.05', title: '第一次一起吃饭', desc: '小餐馆里，双皮奶给到夯！' },
+          { date: '2026.05.20', title: '小站上线', desc: '属于我们两个人的网站，正式开张 🌸' },
+        ].map((item) => (
+          <div class="flex items-start gap-3 pl-8 relative">
+            <div class="absolute left-[13px] top-2 w-2 h-2 rounded-full bg-warm-pink"></div>
+            <div>
+              <span class="text-[10px] text-warm-gray bg-warm-bg-pink px-2 py-0.5 rounded-full">{item.date}</span>
+              <p class="text-sm font-bold text-gray-700 mt-1">{item.title}</p>
+              <p class="text-xs text-warm-gray">{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="w-12 h-px bg-warm-pink-light/60 mx-auto mb-10"></div>
+
+    <!-- 关于这个网站 -->
+    <div class="text-center">
+      <h2 class="font-serif text-lg font-bold text-warm-pink mb-4">关于这个小站</h2>
+      <p class="text-sm text-gray-600 leading-loose">
+        不想用朋友圈，不想发微博。<br/>
+        就想有一个小小的角落，只属于我们。<br/>
+        记录每一顿饭、每一次见面、每一句想说的话。<br/><br/>
+        多年以后翻回来，<br/>
+        希望还记得此刻的心情。<br/><br/>
+        谢谢你来看我们的故事 💕
+      </p>
+    </div>
+
+    <div class="w-8 h-px bg-warm-pink-light/60 mx-auto mt-8 mb-3"></div>
+    <p class="text-xs text-warm-gray text-center">—— Y &amp; L</p>
+
   </section>
 </BaseLayout>

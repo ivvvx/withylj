@@ -34,6 +34,35 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags ?? []))];
   <!-- Divider -->
   <div class="text-center py-3 text-sm text-warm-pink-light/60 tracking-widest select-none">· · ✿ · ·</div>
 
+  <!-- Milestones -->
+  <section class="max-w-3xl mx-auto px-4 pb-8">
+    <div class="text-center mb-4">
+      <h2 class="text-base font-bold text-warm-pink">📅 我们的故事</h2>
+      <p class="text-xs text-warm-gray mt-1">一路走来的小脚印</p>
+    </div>
+    <div class="flex flex-wrap justify-center gap-3">
+      {[
+        { icon: '💕', date: '11.27', label: '在一起' },
+        { icon: '🍲', date: '01.10', label: '第一次约会' },
+        { icon: '💻', date: '02.14', label: '异地情人节' },
+        { icon: '🍮', date: '05.05', label: '漂亮饭' },
+        { icon: '🌸', date: '05.20', label: '小站上线' },
+      ].map((m) => (
+        <div class="bg-warm-bg-pink rounded-xl px-4 py-3 text-center min-w-[80px] border border-warm-border">
+          <div class="text-xl mb-1">{m.icon}</div>
+          <p class="text-[10px] text-warm-gray">{m.date}</p>
+          <p class="text-xs font-bold text-gray-600">{m.label}</p>
+        </div>
+      ))}
+    </div>
+    <div class="text-center mt-4">
+      <a href={`${base}/about/`} class="text-xs text-warm-pink hover:underline">了解更多关于我们 →</a>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="text-center py-3 text-base opacity-15 select-none">── ♡ ──</div>
+
   <!-- Recent Posts -->
   <section class="max-w-3xl mx-auto px-4 pb-6">
     <div class="text-center mb-4">

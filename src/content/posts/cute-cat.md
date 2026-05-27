@@ -2,7 +2,7 @@
 title: "小猫展示"
 date: 2026-05-20
 cover: "/images/ylj/ylj-portrait-01.jpg"
-tags: ["日常"]
+tags: ["日常", "猫咪"]
 summary: "哦咦咦啊咦哦咦咦啊"
 weather: "☀️ 晴"
 ---

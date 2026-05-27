@@ -2,7 +2,7 @@
 title: "with u"
 date: 2026-01-10
 cover: "/images/us/us-photo-07.jpg"
-tags: ["日常"]
+tags: ["日常", "约会"]
 summary: "day day up up"
 weather: "☀️ 晴"
 ---
