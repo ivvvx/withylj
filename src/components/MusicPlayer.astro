@@ -1,19 +1,133 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" />
-<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+---
+// Persistent across page navigations via View Transitions
+// Uses native <audio> with Meting API to fetch NetEase song URL
+---
 
-<meting-js
-  server="netease"
-  type="playlist"
-  id="14134764079"
-  fixed="true"
-  mini="true"
-  autoplay="false"
-  loop="all"
-  order="random"
-  preload="auto"
-  volume="0.7"
-  list-folded="true"
-  list-max-height="320px"
-  lrc-type="0">
-</meting-js>
+<div transition:persist="music-player">
+  <audio id="bgm-audio" preload="auto" loop></audio>
+
+  <div id="music-widget" class="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-2">
+    <div id="music-panel" class="hidden rounded-xl bg-warm-bg-pink border border-warm-border shadow-xl p-3 w-64 mb-2">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="w-12 h-12 rounded-lg bg-warm-pink-light/30 overflow-hidden flex-shrink-0">
+          <img id="music-cover" src="" alt="" class="w-full h-full object-cover" onerror="this.style.display='none'" />
+        </div>
+        <div class="flex-1 min-w-0">
+          <p id="music-title" class="text-sm font-bold text-gray-700 dark:text-gray-200 truncate">加载中...</p>
+          <p id="music-artist" class="text-xs text-warm-gray truncate"></p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="music-prev" class="text-xs text-warm-gray hover:text-warm-pink cursor-pointer" title="上一首">⏮</button>
+        <button id="music-play" class="w-8 h-8 rounded-full bg-warm-pink text-white flex items-center justify-center text-sm hover:scale-105 transition-transform cursor-pointer">▶</button>
+        <button id="music-next" class="text-xs text-warm-gray hover:text-warm-pink cursor-pointer" title="下一首">⏭</button>
+        <div class="flex-1"></div>
+        <span id="music-time" class="text-[10px] text-warm-gray">00:00</span>
+      </div>
+      <input type="range" id="music-progress" class="w-full mt-2 h-1 accent-warm-pink cursor-pointer" value="0" min="0" max="100" />
+    </div>
+
+    <button id="music-toggle" class="w-10 h-10 rounded-full bg-warm-pink text-white shadow-lg flex items-center justify-center text-lg hover:scale-105 transition-transform cursor-pointer relative" aria-label="音乐">
+      <span id="music-icon">🎵</span>
+      <span id="music-playing-dot" class="hidden absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-green-400 rounded-full border border-white"></span>
+    </button>
+  </div>
+</div>
+
+<script>
+  (function() {
+    if (window.__musicInited) return;
+    window.__musicInited = true;
+
+    const audio = document.getElementById('bgm-audio');
+    const toggle = document.getElementById('music-toggle');
+    const panel = document.getElementById('music-panel');
+    const playBtn = document.getElementById('music-play');
+    const cover = document.getElementById('music-cover');
+    const title = document.getElementById('music-title');
+    const artist = document.getElementById('music-artist');
+    const icon = document.getElementById('music-icon');
+    const dot = document.getElementById('music-playing-dot');
+    const progress = document.getElementById('music-progress');
+    const timeDisplay = document.getElementById('music-time');
+
+    let playing = false;
+    let panelOpen = false;
+
+    function fmt(t) {
+      const m = Math.floor(t / 60);
+      const s = Math.floor(t % 60);
+      return m + ':' + (s < 10 ? '0' : '') + s;
+    }
+
+    // Load song from Meting API
+    fetch('https://api.i-meto.com/meting/api?server=netease&type=song&id=420401511')
+      .then(r => r.json())
+      .then(data => {
+        if (data && data.length > 0) {
+          const song = data[0];
+          audio.src = song.url;
+          if (song.pic) cover.src = song.pic;
+          title.textContent = song.title || '和你';
+          artist.textContent = song.author || '余佳运';
+        }
+      })
+      .catch(() => {
+        title.textContent = '加载失败';
+      });
+
+    function setPlaying(state) {
+      playing = state;
+      playBtn.textContent = state ? '⏸' : '▶';
+      icon.textContent = state ? '🎶' : '🎵';
+      dot.classList.toggle('hidden', !state);
+    }
+
+    function tryPlay() {
+      audio.play().then(() => setPlaying(true)).catch(() => {});
+    }
+
+    // Autoplay attempt — browser may block
+    audio.addEventListener('canplay', () => {
+      tryPlay();
+    }, { once: true });
+
+    // Fallback: start on any user click
+    document.addEventListener('click', function startOnClick() {
+      if (!playing) tryPlay();
+    }, { once: false });
+
+    playBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (playing) {
+        audio.pause();
+        setPlaying(false);
+      } else {
+        tryPlay();
+      }
+    });
+
+    toggle?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      panelOpen = !panelOpen;
+      panel?.classList.toggle('hidden', !panelOpen);
+    });
+
+    audio?.addEventListener('play', () => setPlaying(true));
+    audio?.addEventListener('pause', () => setPlaying(false));
+    audio?.addEventListener('ended', () => setPlaying(false));
+
+    audio?.addEventListener('timeupdate', () => {
+      if (audio.duration) {
+        progress.value = (audio.currentTime / audio.duration) * 100;
+        timeDisplay.textContent = fmt(audio.currentTime);
+      }
+    });
+
+    progress?.addEventListener('input', () => {
+      if (audio.duration) {
+        audio.currentTime = (progress.value / 100) * audio.duration;
+      }
+    });
+  })();
+</script>
