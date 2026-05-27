@@ -15,7 +15,7 @@ weather: "☀️ 晴"
 
 ![视频通话](/images/videocall/videocall-screenshot-03.jpg)
 
-![视频通话](/images/videocall/videocall-screenshot-04.jpg)
+<!-- ![视频通话](/images/videocall/videocall-screenshot-04.jpg) -->
 
 ![视频通话](/images/videocall/videocall-screenshot-05.jpg)
 
@@ -33,10 +33,10 @@ weather: "☀️ 晴"
 
 ![视频通话](/images/videocall/videocall-screenshot-12.jpg)
 
-![视频通话](/images/videocall/videocall-screenshot-13.jpg)
+<!-- ![视频通话](/images/videocall/videocall-screenshot-13.jpg) -->
 
-![视频通话](/images/videocall/videocall-screenshot-14.jpg)
+<!-- ![视频通话](/images/videocall/videocall-screenshot-14.jpg) -->
 
-![视频通话](/images/videocall/videocall-screenshot-15.jpg)
+<!-- ![视频通话](/images/videocall/videocall-screenshot-15.jpg) -->
 
 ![视频通话](/images/videocall/videocall-screenshot-16.jpg)
