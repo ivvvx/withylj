@@ -1,27 +1,19 @@
-<div id="music-widget" class="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-2">
-  <!-- Toggle button -->
-  <button id="music-toggle" class="w-10 h-10 rounded-full bg-warm-pink text-white shadow-lg flex items-center justify-center text-lg hover:scale-105 transition-transform cursor-pointer" aria-label="音乐">
-    🎵
-  </button>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
 
-  <!-- Player iframe (hidden by default) -->
-  <div id="music-player" class="hidden rounded-xl overflow-hidden shadow-xl border border-warm-border">
-    <iframe
-      frameborder="no"
-      border="0"
-      marginwidth="0"
-      marginheight="0"
-      width="330"
-      height="86"
-      src="//music.163.com/outchain/player?type=0&id=14134764079&auto=0&height=66">
-    </iframe>
-  </div>
-</div>
-
-<script>
-  const toggle = document.getElementById('music-toggle');
-  const player = document.getElementById('music-player');
-  toggle?.addEventListener('click', () => {
-    player?.classList.toggle('hidden');
-  });
-</script>
+<meting-js
+  server="netease"
+  type="playlist"
+  id="14134764079"
+  fixed="true"
+  mini="true"
+  autoplay="false"
+  loop="all"
+  order="random"
+  preload="auto"
+  volume="0.7"
+  list-folded="true"
+  list-max-height="320px"
+  lrc-type="0">
+</meting-js>
