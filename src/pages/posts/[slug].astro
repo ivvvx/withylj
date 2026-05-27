@@ -11,7 +11,7 @@ export async function getStaticPaths() {
   }));
 }
 
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const { post } = Astro.props;
 const { Content } = await render(post);
 const { title, date, tags, summary, cover, weather } = post.data;

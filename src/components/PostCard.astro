@@ -2,7 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import { responsiveCover } from '../utils/image';
 
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 interface Props {
   post: CollectionEntry<'posts'>;
