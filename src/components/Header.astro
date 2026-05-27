@@ -1,7 +1,7 @@
 ---
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const navItems = [
-  { href: `${base}`, label: '首页' },
+  { href: `${base || '/'}`, label: '首页' },
   { href: `${base}/timeline/`, label: '时间线' },
   { href: `${base}/albums/`, label: '相册' },
   { href: `${base}/about/`, label: '关于' },
@@ -11,7 +11,7 @@ const currentPath = Astro.url.pathname;
 
 <header class="border-b border-warm-border bg-warm-bg sticky top-0 z-10">
   <div class="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
-    <a href={`${base}`} class="font-serif text-lg font-bold text-warm-pink">
+    <a href={`${base || '/'}`} class="font-serif text-lg font-bold text-warm-pink">
       🌸 With Ylj
     </a>
 
