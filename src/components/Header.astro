@@ -57,16 +57,19 @@ const currentPath = Astro.url.pathname;
 </header>
 
 <script>
-  const btn = document.getElementById('menu-toggle');
-  const menu = document.getElementById('mobile-menu');
-  btn?.addEventListener('click', () => {
-    menu?.classList.toggle('hidden');
-  });
+  // Use event delegation so listeners survive ClientRouter DOM morphing
+  document.addEventListener('click', (e) => {
+    // Mobile menu toggle
+    if (e.target.closest('#menu-toggle')) {
+      const menu = document.getElementById('mobile-menu');
+      menu?.classList.toggle('hidden');
+    }
 
-  const themeBtn = document.getElementById('theme-toggle');
-  themeBtn?.addEventListener('click', () => {
-    const html = document.documentElement;
-    html.classList.toggle('dark');
-    localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    // Theme toggle
+    if (e.target.closest('#theme-toggle')) {
+      const html = document.documentElement;
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    }
   });
 </script>
