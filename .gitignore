@@ -31,3 +31,5 @@ public/images/**/*-400w.webp
 public/images/**/*-800w.webp
 public/images/**/*-1200w.webp
 public/images/**/*-blur.webp
+src-tauri/target/
+src-tauri/gen/

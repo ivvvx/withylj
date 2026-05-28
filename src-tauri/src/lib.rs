@@ -50,9 +50,9 @@ pub fn run() {
                     }
                 };
 
-                let (status, body) = match serve_path {
+                let (status, body, content_type) = match serve_path {
                     Some(p) if p.is_file() => {
-                        let content_type = match p.extension().and_then(|e| e.to_str()) {
+                        let ct = match p.extension().and_then(|e| e.to_str()) {
                             Some("html") => "text/html; charset=utf-8",
                             Some("css") => "text/css",
                             Some("js") => "application/javascript",
@@ -67,26 +67,20 @@ pub fn run() {
                             _ => "application/octet-stream",
                         };
                         match std::fs::read(&p) {
-                            Ok(data) => (200, data),
-                            Err(_) => (404, b"Not Found".to_vec()),
+                            Ok(data) => (200, data, ct),
+                            Err(_) => (404, b"Not Found".to_vec(), "text/plain"),
                         }
                     }
                     _ => {
-                        // SPA fallback: serve index.html
                         let index_path = dist.join("index.html");
                         match std::fs::read(&index_path) {
-                            Ok(data) => (200, data),
-                            Err(_) => (404, b"Not Found".to_vec()),
+                            Ok(data) => (200, data, "text/html; charset=utf-8"),
+                            Err(_) => (404, b"Not Found".to_vec(), "text/plain"),
                         }
                     }
                 };
 
                 let status_text = if status == 200 { "OK" } else { "Not Found" };
-                let content_type = if status == 200 {
-                    "text/html; charset=utf-8"
-                } else {
-                    "text/plain"
-                };
                 let resp = format!(
                     "HTTP/1.1 {} {}\r\nContent-Type: {}\r\nContent-Length: {}\r\nAccess-Control-Allow-Origin: *\r\nConnection: close\r\n\r\n",
                     status, status_text,

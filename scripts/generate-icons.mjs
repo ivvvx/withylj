@@ -1,5 +1,6 @@
 import sharp from 'sharp'
-import { mkdirSync } from 'fs'
+import toIco from 'to-ico'
+import { writeFileSync, mkdirSync } from 'fs'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
 
@@ -9,11 +10,11 @@ const svgPath = join(__dirname, '..', 'public', 'favicon.svg')
 
 mkdirSync(iconsDir, { recursive: true })
 
+// Generate PNG icons for Tauri
 const sizes = {
   '32x32.png': 32,
   '128x128.png': 128,
   '128x128@2x.png': 256,
-  'icon.ico': 32,
 }
 
 for (const [filename, size] of Object.entries(sizes)) {
@@ -21,7 +22,14 @@ for (const [filename, size] of Object.entries(sizes)) {
   await sharp(svgPath).resize(size, size).png().toFile(outPath)
 }
 
-// Also generate PWA icons
+// Generate proper ICO file (Windows requires valid ICO format)
+const ico_32 = await sharp(svgPath).resize(32, 32).png().toBuffer()
+const ico_48 = await sharp(svgPath).resize(48, 48).png().toBuffer()
+const ico_256 = await sharp(svgPath).resize(256, 256).png().toBuffer()
+const icoBuf = await toIco([ico_32, ico_48, ico_256])
+writeFileSync(join(iconsDir, 'icon.ico'), icoBuf)
+
+// Generate PWA icons
 await sharp(svgPath).resize(192, 192).png().toFile(join(__dirname, '..', 'public', 'icon-192.png'))
 await sharp(svgPath).resize(512, 512).png().toFile(join(__dirname, '..', 'public', 'icon-512.png'))
 
